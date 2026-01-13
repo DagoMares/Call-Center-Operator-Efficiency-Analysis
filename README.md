@@ -1,80 +1,82 @@
 # Call-Center Operator Efficiency Analysis 📞📊
 
-**Análisis de eficiencia operativa e identificación de operadores ineficaces para el servicio de telefonía virtual "CallMeMaybe".**
+**Operational efficiency analysis and identification of ineffective operators for the "CallMeMaybe" virtual telephony service.**
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![Tableau](https://img.shields.io/badge/Tableau-Dashboard-orange.svg)](https://public.tableau.com/views/inef_ops/CallMeMaybe-Ops?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 
-## 📋 Tabla de Contenidos
-- [Contexto del Proyecto](#-contexto-del-proyecto)
-- [El Problema](#-el-problema)
-- [Metodología](#-metodología)
-- [Definición de Ineficacia](#-definición-de-ineficacia)
-- [Resultados de Pruebas de Hipótesis](#-resultados-de-pruebas-de-hipótesis)
-- [Conclusiones y Recomendaciones](#-conclusiones-y-recomendaciones)
-- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
-- [Visualización](#-visualización)
+## 📋 Table of Contents
+- [Call-Center Operator Efficiency Analysis 📞📊](#call-center-operator-efficiency-analysis-)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [🏢 Project Context](#-project-context)
+  - [❓ Problem Statement](#-problem-statement)
+  - [⚙️ Methodology](#️-methodology)
+  - [📉 Inefficiency Definition](#-inefficiency-definition)
+  - [🧪 Hypothesis Testing Results](#-hypothesis-testing-results)
+  - [🚀 Conclusions and Recommendations](#-conclusions-and-recommendations)
+  - [💻 Technologies Used](#-technologies-used)
+  - [📊 Visualization](#-visualization)
 
 ---
 
-## 🏢 Contexto del Proyecto
-"CallMeMaybe" es un proveedor de servicios de telefonía virtual que busca optimizar su gestión de recursos humanos. La empresa necesita entender mejor el desempeño de sus operadores para mejorar la calidad del servicio al cliente y la eficiencia operativa.
+## 🏢 Project Context
+"CallMeMaybe" is a virtual telephony service provider looking to optimize its human resources management. The company needs to better understand its operators' performance to improve customer service quality and operational efficiency.
 
-El dataset contiene registros de llamadas (internas y externas), duración, tiempos de espera y estado de las llamadas (perdidas o atendidas) durante un periodo determinado.
+The dataset contains records of calls (internal and external), duration, waiting times, and call status (missed or answered) over a specific period.
 
-## ❓ El Problema
-La gerencia carece de un criterio objetivo y basado en datos para determinar qué operadores están teniendo un bajo rendimiento. El objetivo principal es:
-1. Definir qué métricas constituyen a un operador "ineficaz".
-2. Identificar a los operadores que cumplen con estas condiciones.
-3. Proponer acciones de mejora basadas en pruebas estadísticas.
+## ❓ Problem Statement
+Management lacks objective, data-driven criteria to determine which operators are underperforming. The main objectives are:
+1.  Define metrics that constitute an "ineffective" operator.
+2.  Identify operators who meet these conditions.
+3.  Propose improvement actions based on statistical testing.
 
-## ⚙️ Metodología
-El análisis se llevó a cabo siguiendo estos pasos:
+## ⚙️ Methodology
+The analysis was conducted following these steps:
 
-1.  **Preprocesamiento de Datos**: Limpieza de duplicados, tratamiento de valores nulos y conversión de tipos de datos (fechas, booleanos).
-2.  **Análisis Exploratorio (EDA)**: Estudio de la distribución de llamadas entrantes vs. salientes, tiempos de espera y volúmenes diarios.
-3.  **Definición de Umbrales (Data-Driven)**: Uso de percentiles (85, 90, 95) para establecer límites objetivos de rendimiento.
-4.  **Pruebas de Hipótesis**: Validación estadística de las diferencias entre grupos (Test de Levene y T-Student).
-5.  **Segmentación**: Clasificación binaria de operadores (Eficaz / Ineficaz).
+1.  **Data Preprocessing**: Cleaning duplicates, handling null values, and converting data types (dates, booleans).
+2.  **Exploratory Data Analysis (EDA)**: Studying the distribution of incoming vs. outgoing calls, waiting times, and daily volumes.
+3.  **Threshold Definition (Data-Driven)**: Using percentiles (85th, 90th, 95th) to establish objective performance limits.
+4.  **Hypothesis Testing**: Statistical validation of differences between groups (Levene's Test and Student's t-test).
+5.  **Segmentation**: Binary classification of operators (Effective / Ineffective).
 
-## 📉 Definición de Ineficacia
-Basado en el análisis de la distribución de los datos, se establecieron los siguientes KPIs críticos. Un operador se considera **ineficaz** si cumple cualquiera de estas condiciones:
+## 📉 Inefficiency Definition
+Based on the data distribution analysis, the following critical KPIs were established. An operator is considered **ineffective** if they meet any of these conditions:
 
-* **Llamadas Entrantes**:
-    * Tasa de llamadas perdidas > **10%** (Percentil 85+).
-    * Tiempo de espera promedio > **80 segundos** (Percentil 90+).
-* **Llamadas Salientes**:
-    * Cantidad total de llamadas realizadas < **8** (Baja productividad).
+*   **Incoming Calls**:
+    *   Missed call rate > **10%** (85th Percentile+).
+    *   Average waiting time > **80 seconds** (90th Percentile+).
+*   **Outgoing Calls**:
+    *   Total calls made < **8** (Low productivity).
 
-## 🧪 Resultados de Pruebas de Hipótesis
-Se realizaron pruebas estadísticas con un nivel de significancia de `alpha = 0.05` para validar los hallazgos:
+## 🧪 Hypothesis Testing Results
+Statistical tests were performed with a significance level of `alpha = 0.05` to validate the findings:
 
-| Hipótesis | Prueba Estadística | Resultado (Valor-p) | Conclusión |
-| :--- | :--- | :--- | :--- |
-| **1. Tiempos de Espera:** Internas < Externas | T-test (var. desiguales) | `0.000` | **Rechazada H0**. Los clientes externos esperan significativamente más. |
-| **2. Tasa de Pérdida:** Ineficaces > Eficaces | T-test (var. desiguales) | `1.93e-06` | **Rechazada H0**. Los operadores marcados como ineficaces tienen un rendimiento estadísticamente inferior. |
-| **3. Tasa de Pérdida:** Internas ≠ Externas | Z-test (proporciones) | `0.000` | **Rechazada H0**. Existe una diferencia significativa en la atención según el origen de la llamada. |
+| Hypothesis                                  | Statistical Test      | Result (p-value) | Conclusion                                                                                |
+| :------------------------------------------ | :-------------------- | :--------------- | :---------------------------------------------------------------------------------------- |
+| **1. Waiting Times:** Internal < External   | t-test (unequal var.) | `0.000`          | **H0 Rejected**. External clients wait significantly longer.                              |
+| **2. Missed Rate:** Ineffective > Effective | t-test (unequal var.) | `1.82e-04`       | **H0 Rejected**. Operators marked as ineffective have statistically inferior performance. |
+| **3. Missed Rate:** Internal ≠ External     | Z-test (proportions)  | `0.000`          | **H0 Rejected**. There is a significant difference in attention based on call origin.     |
 
-## 🚀 Conclusiones y Recomendaciones
+## 🚀 Conclusions and Recommendations
 
-1.  **Prioridad en Llamadas Externas**: Se demostró que el cuello de botella está en las llamadas externas (clientes reales). Se recomienda reasignar operadores internos a líneas externas durante horas pico.
-2.  **Intervención Focalizada**: Se generó una lista de operadores ineficaces. No se recomienda el despido inmediato, sino **capacitación específica** en reducción de tiempos de espera.
-3.  **Revisión de Infraestructura**: Los valores atípicos en tiempos de espera sugieren posibles fallos técnicos en el enrutamiento de llamadas, no solo error humano.
+1.  **Priority on External Calls**: Analysis showed the bottleneck lies with external calls (real clients). It is recommended to reassign internal operators to external lines during peak hours.
+2.  **Targeted Intervention**: A list of ineffective operators was generated. Immediate dismissal is not recommended; instead, **specific training** on reducing waiting times is advised.
+3.  **Infrastructure Review**: Outliers in waiting times suggest potential technical failures in call routing, not just human error.
 
-## 💻 Tecnologías Utilizadas
-* **Python**: Lenguaje principal.
-* **Pandas & NumPy**: Manipulación y agregación de datos.
-* **SciPy Stats**: Pruebas de hipótesis (Levene, T-test, Z-test).
-* **Matplotlib & Seaborn**: Visualización estática de distribuciones y boxplots.
-* **Tableau**: Dashboard interactivo para la gerencia.
+## 💻 Technologies Used
+*   **Python**: Primary language.
+*   **Pandas & NumPy**: Data manipulation and aggregation.
+*   **SciPy Stats**: Hypothesis testing (Levene, t-test, Z-test).
+*   **Matplotlib & Seaborn**: Static visualization of distributions and boxplots.
+*   **Tableau**: Interactive dashboard for management.
 
-## 📊 Visualización
-Puedes interactuar con el dashboard de resultados aquí:
-👉 **[Ver Dashboard en Tableau Public](https://public.tableau.com/views/inef_ops/CallMeMaybe-Ops?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)**
+## 📊 Visualization
+You can interact with the results dashboard here:
+👉 **[View Dashboard on Tableau Public](https://public.tableau.com/views/inef_ops/CallMeMaybe-Ops?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)**
 
 ---
-*Autor: [Dagoberto Mares](https://github.com/DagoMares)*
+*Author: [Dagoberto Mares](https://github.com/DagoMares)*
 
-*Contacto: [![Gmail Badge](https://img.shields.io/badge/-dagobertomares0@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:dagobertomares0@gmail.com)](mailto:dagobertomares0@gmail.com) - 
+*Contact: [![Gmail Badge](https://img.shields.io/badge/-dagobertomares0@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:dagobertomares0@gmail.com)](mailto:dagobertomares0@gmail.com) -
 [![Linkedin Badge](https://img.shields.io/badge/-dagobertomares-0072b1?style=flat&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/dagoberto-mares/)](https://www.linkedin.com/in/dagoberto-mares/)*
